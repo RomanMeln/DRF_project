@@ -1,0 +1,8 @@
+backend/db.sqlite3
+.idea
+venv/
+__pycache__
+../.idea
+node_modules
+local_settings.py
+package-lock.json

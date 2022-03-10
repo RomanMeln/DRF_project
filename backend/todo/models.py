@@ -11,8 +11,8 @@ class Project(models.Model):
 class Todo(models.Model):
     title = models.CharField(max_length=64)
     text = models.TextField(blank=True) #текстовое поле
-    created = models.DateField(default=timezone.now().strftime("%Y-%m-%d")) # дата создания
-    updated = models.DateField(default=timezone.now().strftime("%Y-%m-%d")) #до какой даты нужно было сделать дело
+    created = models.DateField(auto_now_add=True) # дата создания
+    updated = models.DateField() #до какой даты нужно было сделать дело
     user = models.ForeignKey(User, default='Пользователь', on_delete=models.CASCADE) # foreignkey с помощью которой мы будем осуществлять связь с пользователями
     is_active = models.BooleanField(default=True)
 

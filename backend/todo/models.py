@@ -12,8 +12,8 @@ class Todo(models.Model):
     title = models.CharField(max_length=64)
     text = models.TextField(blank=True) #текстовое поле
     created = models.DateField(auto_now_add=True) # дата создания
-    finish = models.DateField() #до какой даты нужно было сделать дело
-    user = models.ForeignKey(User, default='Пользователь', on_delete=models.CASCADE) # foreignkey с помощью которой мы будем осуществлять связь с пользователями
+    complete = models.DateField() #до какой даты нужно было сделать дело
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # foreignkey с помощью которой мы будем осуществлять связь с пользователями
     is_active = models.BooleanField(default=True)
 
     class Meta: #используем вспомогательный класс мета для сортировки наших дел

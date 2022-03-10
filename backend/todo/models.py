@@ -6,9 +6,14 @@ from userapp.models import User
 
 class Project(models.Model):
     name = models.CharField(max_length=64)
+    users = models.ManyToManyField(User)
+
+    def __str__(self):
+        return self.name
 
 
 class Todo(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     text = models.TextField(blank=True) #текстовое поле
     created = models.DateField(auto_now_add=True) # дата создания

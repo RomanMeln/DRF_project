@@ -22,12 +22,15 @@ from userapp.views import UserViewSet
 
 from todo.views import ProjectViewSet, TodoViewSet
 
+from userapp.views import UsersViewSet
+
 
 router = DefaultRouter()
 # router.register('authors', AuthorViewSet)
 router.register('users', UserViewSet)
 router.register('projects', ProjectViewSet)
 router.register('todos', TodoViewSet)
+router.register('users-api', UsersViewSet, basename='users-api') # обязательно указывать basename, такое же как и первый параметр
 
 
 urlpatterns = [

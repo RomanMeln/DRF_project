@@ -22,16 +22,22 @@ from userapp.views import UserViewSet
 
 from todo.views import ProjectViewSet, TodoViewSet
 
-from userapp.views import UsersViewSet
+from userapp.views import UserCustomViewSet, UserViewSet
+
+# from userapp.views import UsersViewSet, UserUpdateAPIView, UserRetrieveAPIVIew
+from todo.views import ProjectMixinViewSet, TodoMixinViewSet
 
 
 router = DefaultRouter()
 # router.register('authors', AuthorViewSet)
-router.register('users', UserViewSet)
-router.register('projects', ProjectViewSet)
-router.register('todos', TodoViewSet)
-router.register('users-api', UsersViewSet, basename='users-api') # обязательно указывать basename, такое же как и первый параметр
+# router.register('users', UserViewSet)
+# router.register('users-api', UsersViewSet, basename='users-api') # обязательно указывать basename, такое же как и первый параметр
 
+# router.register('projects', ProjectViewSet)
+# router.register('todos', TodoViewSet)
+router.register('todos-mixins', TodoMixinViewSet)
+router.register('users-mixins', UserCustomViewSet)
+router.register('projects-mixins', ProjectMixinViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

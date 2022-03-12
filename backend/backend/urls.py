@@ -35,9 +35,9 @@ router = DefaultRouter()
 
 # router.register('projects', ProjectViewSet)
 # router.register('todos', TodoViewSet)
-router.register('todos-mixins', TodoMixinViewSet)
-router.register('users-mixins', UserCustomViewSet)
-router.register('projects-mixins', ProjectMixinViewSet)
+router.register('todos', TodoMixinViewSet)
+router.register('users', UserCustomViewSet)
+router.register('projects', ProjectMixinViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

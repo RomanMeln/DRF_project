@@ -10,7 +10,8 @@ from .filters import ProjectFilter, TodoFilter
 from .models import Project, Todo
 from .serializers import ProjectSerializer, TodoSerializer
 from django_filters import rest_framework as filters
-
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, DjangoModelPermissionsOrAnonReadOnly, \
+    BasePermission, AllowAny
 
 class ProjectViewSet(ModelViewSet):
     queryset = Project.objects.all()
@@ -23,6 +24,7 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
 
 class ProjectMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin, DestroyModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     filterset_class = ProjectFilter # фильтр не работает. прошу подсказать в чем проблема
@@ -40,6 +42,7 @@ class TodoLimitOffsetPagination(LimitOffsetPagination):
 
 class TodoMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin, DestroyModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     filterset_class = TodoFilter # фильтр не работает. прошу подсказать в чем проблема

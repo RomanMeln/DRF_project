@@ -26,6 +26,7 @@ from userapp.views import UserCustomViewSet, UserViewSet
 
 # from userapp.views import UsersViewSet, UserUpdateAPIView, UserRetrieveAPIVIew
 from todo.views import ProjectMixinViewSet, TodoMixinViewSet
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 router = DefaultRouter()
@@ -36,10 +37,12 @@ router = DefaultRouter()
 # router.register('projects', ProjectViewSet)
 # router.register('todos', TodoViewSet)
 router.register('todos', TodoMixinViewSet)
-router.register('users', UserCustomViewSet)
+router.register('users', UserCustomViewSet) #UserCustomViewSet UserViewSet
 router.register('projects', ProjectMixinViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api-token-auth/', obtain_auth_token)
 ]

@@ -33,7 +33,7 @@ class AppUser extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/users/')
             .then(response => {
-                const users = response.data.results; //добавил results, чтобы массив приходил
+                const users = response.data; //убрал results, так как убрал пагинатор
                 // console.log(users)
                 this.setState(
                 {
@@ -45,7 +45,7 @@ class AppUser extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/projects/')
             .then(response => {
-                const projects = response.data.results; //добавил results, чтобы массив приходил
+                const projects = response.data; //убрал results, так как убрал пагинатор
                 // console.log(users)
                 this.setState(
                 {
@@ -57,7 +57,7 @@ class AppUser extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/todos/')
             .then(response => {
-                const todos = response.data.results; //добавил results, чтобы массив приходил
+                const todos = response.data; //убрал results, так как убрал пагинатор
                 // console.log(users)
                 this.setState(
                 {

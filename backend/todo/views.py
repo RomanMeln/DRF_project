@@ -28,7 +28,7 @@ class ProjectMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     filterset_class = ProjectFilter # фильтр не работает. прошу подсказать в чем проблема
-    pagination_class = ProjectLimitOffsetPagination
+    # pagination_class = ProjectLimitOffsetPagination
 
 
 class TodoViewSet(ModelViewSet):
@@ -46,7 +46,7 @@ class TodoMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, Cre
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     filterset_class = TodoFilter # фильтр не работает. прошу подсказать в чем проблема
-    pagination_class = TodoLimitOffsetPagination
+    # pagination_class = TodoLimitOffsetPagination
 
     def destroy(self, request, *args, **kwargs):
         """ переопределил удаление, смена is-active на False"""

@@ -45,7 +45,12 @@ class AppUser extends React.Component {
                     }
                 )
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    'users': []
+                })
+            })
         axios
             .get('http://127.0.0.1:8000/api/projects/', {headers})
             .then(response => {
@@ -57,7 +62,12 @@ class AppUser extends React.Component {
                     }
                 )
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    'projects': []
+                })
+            })
         axios
             .get('http://127.0.0.1:8000/api/todos/', {headers})
             .then(response => {
@@ -69,15 +79,31 @@ class AppUser extends React.Component {
                     }
                 )
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    'todos': []
+                })
+            })
     }
     componentDidMount() {
-        this.getData()
+        let token = localStorage.getItem('token') // вызваать данные из локального хранилища
+        this.setState({
+                'token': token
+            }, this.getData)
         }
 
     isAuth(){
-      return this.state.token != ''
+      return !!this.state.token // не не
     }
+
+    logout() {
+        localStorage.setItem('token', '') // сохранить данные в локальном хранилище. Ключ и значение через запятую.!
+            this.setState({
+                'token': ''
+            }, this.getData)
+        }
+
 
     getHeader(){
         if (this.isAuth()){
@@ -96,6 +122,7 @@ class AppUser extends React.Component {
           .then(response => {
               const token = response.data.token;
               console.log(token)
+              localStorage.setItem('token', token) // сохранить данные в локальном хранилище. Ключ и значение через запятую.!
               this.setState({
                   'token': token
               }, this.getData)
@@ -113,7 +140,9 @@ class AppUser extends React.Component {
                         <li><Link to='/'>Users</Link></li>
                         <li><Link to='/projects'>Projects</Link></li>
                         <li><Link to='/todos'>Todos</Link></li>
-                        <li><Link to='/login'>Login</Link></li>
+                        <li>
+                            {this.isAuth() ? <button onClick={()=>this.logout()}>Logout</button> : <Link to='/login'>Login</Link>}
+                        </li>
                     </nav>
                     <Routes>
                         <Route exact path='/' element={<UserList users={this.state.users} />} />

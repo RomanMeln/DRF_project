@@ -82,7 +82,7 @@ class AppUser extends React.Component {
     getHeader(){
         if (this.isAuth()){
             return {
-                'Authorization': 'Token' + this.state.token
+                'Authorization': 'Token ' + this.state.token // 'Token_' обязательно пробел на месте черты
             }
 
         }
@@ -98,8 +98,7 @@ class AppUser extends React.Component {
               console.log(token)
               this.setState({
                   'token': token
-              })
-              this.getData()
+              }, this.getData)
           })
           .catch(error => alert('Неверный логин или пароль'))
         }

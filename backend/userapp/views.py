@@ -24,7 +24,7 @@ class UserViewSet(ModelViewSet):
 class UserCustomViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,
                         mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """ Могу смотреть всех и по 1му. Могу менять 1го. Создавать и удалять нельзя """
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly] # Закомментил, чтобы только базовый работал.
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]

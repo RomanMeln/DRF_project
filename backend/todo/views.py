@@ -24,10 +24,10 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
 
 class ProjectMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin, DestroyModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly] # Закомментил, чтобы только базовый работал
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    filterset_class = ProjectFilter # фильтр не работает. прошу подсказать в чем проблема
+    # filterset_class = ProjectFilter # фильтр не работает.
     # pagination_class = ProjectLimitOffsetPagination
 
 
@@ -42,10 +42,10 @@ class TodoLimitOffsetPagination(LimitOffsetPagination):
 
 class TodoMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin, DestroyModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly] # Закомментил, чтобы только базовый работал
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    filterset_class = TodoFilter # фильтр не работает. прошу подсказать в чем проблема
+    # filterset_class = TodoFilter # фильтр не работает.
     # pagination_class = TodoLimitOffsetPagination
 
     def destroy(self, request, *args, **kwargs):

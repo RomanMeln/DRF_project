@@ -1,11 +1,13 @@
 import React from 'react'
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
+import Menu from './components/Menu.js'
+import LoginForm from "./components/LoginForm";
 import UserList from './components/UserList.js'
 import ProjectList from './components/ProjectList.js'
 import TodoList from './components/TodoList.js'
-import axios from 'axios'
-import Menu from './components/Menu.js'
+
 import Footer from './components/Footer.js'
 import {HashRouter, BrowserRouter, Routes, Route, Link, useLocation} from "react-router-dom";
 
@@ -25,13 +27,15 @@ class AppUser extends React.Component {
       this.state = {
           'users': [],
           'projects': [],
-          'todos': []
+          'todos': [],
+          'token': ''
       }
     }
+    getData(){
+      let headers = this.getHeader()
 
-    componentDidMount() {
-        axios
-            .get('http://127.0.0.1:8000/api/users/')
+      axios
+            .get('http://127.0.0.1:8000/api/users/', {headers})
             .then(response => {
                 const users = response.data; //убрал results, так как убрал пагинатор
                 // console.log(users)
@@ -43,7 +47,7 @@ class AppUser extends React.Component {
             })
             .catch(error => console.log(error))
         axios
-            .get('http://127.0.0.1:8000/api/projects/')
+            .get('http://127.0.0.1:8000/api/projects/', {headers})
             .then(response => {
                 const projects = response.data; //убрал results, так как убрал пагинатор
                 // console.log(users)
@@ -55,7 +59,7 @@ class AppUser extends React.Component {
             })
             .catch(error => console.log(error))
         axios
-            .get('http://127.0.0.1:8000/api/todos/')
+            .get('http://127.0.0.1:8000/api/todos/', {headers})
             .then(response => {
                 const todos = response.data; //убрал results, так как убрал пагинатор
                 // console.log(users)
@@ -67,6 +71,39 @@ class AppUser extends React.Component {
             })
             .catch(error => console.log(error))
     }
+    componentDidMount() {
+        this.getData()
+        }
+
+    isAuth(){
+      return this.state.token != ''
+    }
+
+    getHeader(){
+        if (this.isAuth()){
+            return {
+                'Authorization': 'Token' + this.state.token
+            }
+
+        }
+        return {}
+    }
+
+    getToken(login, password) {
+      console.log(login, password)
+      axios
+          .post('http://127.0.0.1:8000/api-token-auth/', {'username': login, 'password': password})
+          .then(response => {
+              const token = response.data.token;
+              console.log(token)
+              this.setState({
+                  'token': token
+              })
+              this.getData()
+          })
+          .catch(error => alert('Неверный логин или пароль'))
+        }
+
 
     render () {
         return (
@@ -77,11 +114,14 @@ class AppUser extends React.Component {
                         <li><Link to='/'>Users</Link></li>
                         <li><Link to='/projects'>Projects</Link></li>
                         <li><Link to='/todos'>Todos</Link></li>
+                        <li><Link to='/login'>Login</Link></li>
                     </nav>
                     <Routes>
                         <Route exact path='/' element={<UserList users={this.state.users} />} />
                         <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
                         <Route exact path='/todos' element={<TodoList todos={this.state.todos} />} />
+                        <Route exact path='/login' element={<LoginForm
+                            getToken={(login, password) => this.getToken(login, password)} />} />
                         <Route path="*" element={<NotFound404/>}/>
                     </Routes>
                 </BrowserRouter>

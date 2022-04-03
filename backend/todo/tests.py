@@ -46,11 +46,6 @@ class TestTodoClientApi(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_list_1(self):
-
-        '''Запуск теста при активации настройки rest_framework.permissions.IsAuthenticated '''
-        '''Запуск только этого теста в терминале:
-        "python manage.py test todo.tests.TestTodoClientApi.test_get_list_1" '''
-
         User.objects.create_superuser('djangorest', email='djangorest@local.com', password='geekbrains')
         self.client.login(username='djangorest', password='geekbrains')
         response = self.client.get('/api/projects/')

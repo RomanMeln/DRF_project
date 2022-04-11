@@ -27,7 +27,7 @@ class ProjectMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, 
     # permission_classes = [IsAuthenticatedOrReadOnly] # Закомментил, чтобы только базовый работал
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    # filterset_class = ProjectFilter # фильтр не работает.
+    filterset_class = ProjectFilter # фильтр не работает.
     # pagination_class = ProjectLimitOffsetPagination
 
 
@@ -45,7 +45,7 @@ class TodoMixinViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, Cre
     # permission_classes = [IsAuthenticatedOrReadOnly] # Закомментил, чтобы только базовый работал
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    # filterset_class = TodoFilter # фильтр не работает.
+    filterset_class = TodoFilter # фильтр не работает.
     # pagination_class = TodoLimitOffsetPagination
 
     def destroy(self, request, *args, **kwargs):

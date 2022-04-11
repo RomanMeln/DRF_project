@@ -106,17 +106,16 @@ class AppUser extends React.Component {
             }, this.getData)
         }
 
-    newProject(name, users) {
+    newProject(name, user) {
         let headers = this.getHeader()
-        let data = {'name': name, 'users': users}
-        console.log(name, users)
+        let data = {'name': name, 'users': user}
+        console.log(name, user)
         axios
             .post('http://127.0.0.1:8000/api/projects/', data, {headers})
             .then(response => {
                 this.getData()
             })
             .catch(error => {
-                console.log(data, headers)
                 console.log(error)
             })
     }
@@ -133,9 +132,9 @@ class AppUser extends React.Component {
             }).catch(error => console.log(error))
         }
 
-    newTodo(projects, title, text, complete, user) {
+    newTodo(projects, title, text, complete, users) {
         let headers = this.getHeader()
-        let data = {'project': projects[0], 'title': title, 'text': text, 'complete': complete, 'user': 1}
+        let data = {'project': projects[0], 'title': title, 'text': text, 'complete': complete, 'user': users}
         console.log(data)
         axios
             .post('http://127.0.0.1:8000/api/todos/', data, {headers})

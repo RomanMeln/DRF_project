@@ -17,7 +17,7 @@ class ProjectForm extends React.Component {
 
         let users = []
         for (let j = 0; j < event.target.selectedOptions.length ; j++) {
-            users.push(event.target.selectedOptions.item(j).value)
+            users.push(parseInt(event.target.selectedOptions.item(j).value))
         }
 
         console.log(users)

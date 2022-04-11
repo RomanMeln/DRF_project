@@ -35,16 +35,17 @@ class TodoForm extends React.Component {
         }
         let users = []
         for (let j = 0; j < event.target.selectedOptions.length ; j++) {
-            users.push(event.target.selectedOptions.item(j).value)
+            users.push(parseInt(event.target.selectedOptions.item(j).value))
         }
 
         console.log(users)
         this.setState({
-            'users': users
+            'users': users[0]
         });
     }
 
     handleChange(event) {
+        console.log(event.target.value)
         this.setState({
                 [event.target.name]: event.target.value
         });
@@ -58,7 +59,7 @@ class TodoForm extends React.Component {
     render() {
         return (
             <form onSubmit={(event)=> this.handleSubmit(event)}>
-                <select multiple onChange={(event)=>this.handleProjectsChange(event)}>
+                <select onChange={(event)=>this.handleProjectsChange(event)}>
                     {this.props.projects.map((project) => <option value={project.id}>{project.name}</option>)}
                 </select>
 
@@ -80,13 +81,13 @@ class TodoForm extends React.Component {
 
                 <input
                     type="date"
-                    name="date"
+                    name="complete"
                     placeholder="date"
-                    value={this.state.date}
+                    value={this.state.complete}
                     onChange={(event)=>this.handleChange(event)}
                 />
 
-                <select multiple onChange={(event)=>this.handleUsersChange(event)}>
+                <select onChange={(event)=>this.handleUsersChange(event)}>
                     {this.props.users.map((user) => <option value={user.id} >{user.first_name} {user.last_name}</option>)}
                 </select>
 

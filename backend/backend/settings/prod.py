@@ -1,6 +1,6 @@
 from .settings import *
 
-DEBUG = True
+DEBUG = False
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -10,7 +10,7 @@ DATABASES = {
         'NAME': 'my_todo',
         'USER': 'djangorest',
         'PASSWORD': 'geekbrains',
-        'HOST': '127.0.0.1',
-        'PORT': '54326'
+        'HOST': 'db',
+        'PORT': '5432'
     }
 }

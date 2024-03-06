@@ -25,7 +25,7 @@ from todo.views import ProjectViewSet, TodoViewSet
 from userapp.views import UserCustomViewSet, UserViewSet
 from todo.views import ProjectMixinViewSet, TodoMixinViewSet
 from rest_framework.authtoken.views import obtain_auth_token
-
+from django.views.generic import TemplateView
 
 router = DefaultRouter()
 
@@ -61,4 +61,5 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0)),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),
     path('graphql/', GraphQLView.as_view(graphiql=True)),
+    path('', TemplateView.as_view(template_name='index.html')),
 ]

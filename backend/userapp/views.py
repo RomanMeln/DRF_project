@@ -1,5 +1,7 @@
 from rest_framework import viewsets, mixins
 from rest_framework.generics import get_object_or_404, UpdateAPIView
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, DjangoModelPermissionsOrAnonReadOnly, \
+    BasePermission, AllowAny
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
@@ -7,7 +9,14 @@ from .models import User
 from .serializers import UserSerializer
 
 
+# class IsSuperAdminUser(BasePermission):
+#
+#     def has_permission(self, request, view):
+#         return bool(request.user and request.user.is_superuser)
+
+
 class UserViewSet(ModelViewSet):
+    # permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -15,6 +24,7 @@ class UserViewSet(ModelViewSet):
 class UserCustomViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,
                         mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """ Могу смотреть всех и по 1му. Могу менять 1го. Создавать и удалять нельзя """
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]

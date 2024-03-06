@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserFullSerializer
 
 
 # class IsSuperAdminUser(BasePermission):
@@ -20,6 +20,10 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def get_serializer_class(self):
+        if self.request.version == '0.2':
+            return UserFullSerializer
+        return UserSerializer
 
 class UserCustomViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,
                         mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -28,6 +32,11 @@ class UserCustomViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
+    def get_serializer_class(self):
+        if self.request.version == '0.2':
+            return UserFullSerializer
+        return UserSerializer
 
 # class UserListAPIVIew(ListAPIView):
 # """Выдаёт метод get и выводит данные об одном объекте из выборки queryset. Для указания адреса

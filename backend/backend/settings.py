@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -79,6 +80,10 @@ REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 }
 
+
+GRAPHENE = {
+    'SCHEMA': 'todo.schema.schema'
+}
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
